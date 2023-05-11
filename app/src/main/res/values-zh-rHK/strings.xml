@@ -1,41 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Gary\'s Android Labs</string>
-    <string name="hello_message">你好!</string>
-    <string name="hello_message">你好!</string>
-    <string name="hello_message">人</string>
-    <string name="hello_message">伙</string>
-    <string name="hello_message">人</string>
-    <string name="hello_message">伙</string>
-    <string name="hello_message">你</string>
-    <string name="hello_message">你女</string>
-    <string name="hello_message">你好</string>
-    <string name="hello_message">你好</string>
-    <string name="hello_message">你好像</string>
-    <string name="hello_message">你好像</string>
-    <string name="hello_message">你好像</string>
-    <string name="hello_message">你好</string>
-    <string name="hello_message">你好</string>
-    <string name="hello_message">你好!</string>
-    <string name="hello_message">你好!</string>
-    <string name="hello_message">人</string>
-    <string name="hello_message">伙</string>
-    <string name="hello_message">你</string>
-    <string name="hello_message">你女</string>
-    <string name="hello_message">你好</string>
-    <string name="hello_message">你好</string>
-    <string name="hello_message">你好</string>
-    <string name="hello_message">你好!</string>
-    <string name="hello_message">你好!</string>
-    <string name="hello_message">你好!\n</string>
-    <string name="hello_message">"你好! "</string>
-    <string name="hello_message">"你好! "</string>
-    <string name="hello_message">"你好! "</string>
-    <string name="hello_message">"你好! "</string>
-    <string name="hello_message">"你好! "</string>
-    <string name="hello_message">"你好! "</string>
-    <string name="hello_message">"你好! "</string>
-    <string name="hello_message">"你好! "</string>
-    <string name="hello_message">"你好! "</string>
+    <string name="hello_message">"你好!"</string>
     <string name="button_message">我係一個制</string>
 </resources>
