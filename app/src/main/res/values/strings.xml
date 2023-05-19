@@ -2,4 +2,6 @@
     <string name="app_name">Gary\'s Android Labs</string>
     <string name="hello_message">Hello World!</string>
     <string name="button_message">i\'m a button</string>
+    <string name="hinttext">waiting for input</string>
+    <string name="myedittext"></string>
 </resources>

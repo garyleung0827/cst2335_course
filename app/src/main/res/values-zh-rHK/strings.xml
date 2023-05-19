@@ -3,4 +3,6 @@
     <string name="app_name">Gary\'s Android Labs</string>
     <string name="hello_message">"你好!"</string>
     <string name="button_message">我係一個制</string>
+    <string name="hinttext">等待輸入</string>
+    <string name="myedittext"></string>
 </resources>

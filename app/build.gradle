@@ -6,6 +6,10 @@ android {
     namespace 'com.example.garysandroidlabs'
     compileSdk 33
 
+    buildFeatures{
+        viewBinding true
+    }
+
     defaultConfig {
         applicationId "com.example.garysandroidlabs"
         minSdk 22
