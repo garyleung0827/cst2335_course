@@ -35,6 +35,7 @@ public class MainActivity extends AppCompatActivity {
         //instaniate a view model
         model = new ViewModelProvider(this).get(MainViewModel.class);
 
+        //name all elements
         TextView mytext = variableBinding.textView;
         Button mybutton = variableBinding.mybutton;
         EditText myedit = variableBinding.editText;
@@ -42,15 +43,27 @@ public class MainActivity extends AppCompatActivity {
         CheckBox mycheckbox = variableBinding.checkBox;
         RadioButton myradiobutton = variableBinding.radioButton;
         ImageButton myimagebutton = variableBinding.imageButton;
-        //mageView myimageview = variableBinding.imageButton;
+        //ImageView myimageview = variableBinding.imageButton;
 
         //click button to show text from edittext to text view
         mybutton.setOnClickListener(click -> {
-            model.editString.postValue(myedit.getText().toString());
+            String word = myedit.getText().toString();
+            model.editString.postValue(word);
             model.editString.observe(this, s ->
                 mytext.setText("Your edit text has " + s)
             );
         });
+
+        //compound button listener
+        mycheckbox.setOnCheckedChangeListener((btn, isChecked) ->
+                model.isSelected.postValue(isChecked)
+        );
+        myradiobutton.setOnCheckedChangeListener((btn, isChecked) ->
+                model.isSelected.postValue(isChecked)
+        );
+        myswitch.setOnCheckedChangeListener((btn, isChecked) ->
+                model.isSelected.postValue(isChecked)
+        );
 
         //button view model
         model.isSelected.observe(this, selected -> {
@@ -59,23 +72,13 @@ public class MainActivity extends AppCompatActivity {
             myswitch.setChecked(selected);
 
             Context context = getApplicationContext();
-            CharSequence text = "Selected!";
+            CharSequence text = "3 buttons are Selected!";
             int duration = Toast.LENGTH_SHORT;
 
             Toast toast = Toast.makeText(context, text, duration);
             toast.show();
         });
 
-        //compound button listener
-        mycheckbox.setOnCheckedChangeListener((btn, isChecked) ->
-            model.isSelected.postValue(isChecked)
-        );
-        myradiobutton.setOnCheckedChangeListener((btn, isChecked) ->
-            model.isSelected.postValue(isChecked)
-        );
-        myswitch.setOnCheckedChangeListener((btn, isChecked) ->
-            model.isSelected.postValue(isChecked)
-        );
 
         //click imagebutton to show the toast image
         myimagebutton.setOnClickListener(click -> {

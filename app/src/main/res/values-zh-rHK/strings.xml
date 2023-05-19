@@ -5,4 +5,5 @@
     <string name="button_message">我係一個制</string>
     <string name="hinttext">等待輸入</string>
     <string name="myedittext"></string>
+    <string name="compoundbuttonmsg">Do you drink coffee?</string>
 </resources>
