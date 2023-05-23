@@ -41,21 +41,46 @@ public class MainActivity extends AppCompatActivity {
         EditText myedit = variableBinding.editText;
         Switch myswitch = variableBinding.mySwitch;
         CheckBox mycheckbox = variableBinding.checkBox;
+        CheckBox mycheckbox2 = variableBinding.checkBox2;
         RadioButton myradiobutton = variableBinding.radioButton;
         ImageButton myimagebutton = variableBinding.imageButton;
         //ImageView myimageview = variableBinding.imageButton;
+
+        model.editString.observe(this, s ->
+                mytext.setText("Your edit text has " + s)
+        );
 
         //click button to show text from edittext to text view
         mybutton.setOnClickListener(click -> {
             String word = myedit.getText().toString();
             model.editString.postValue(word);
-            model.editString.observe(this, s ->
-                mytext.setText("Your edit text has " + s)
-            );
+
+        });
+
+
+
+        //button view model
+        model.isSelected.observe(this, selected -> {
+
+
+            Context context = getApplicationContext();
+            CharSequence text = "3 buttons are Selected!";
+            int duration = Toast.LENGTH_SHORT;
+
+            Toast toast = Toast.makeText(context, text, duration);
+            toast.show();
+
+            mycheckbox.setChecked(selected);
+            mycheckbox2.setChecked(selected);
+            myradiobutton.setChecked(selected);
+            myswitch.setChecked(selected);
         });
 
         //compound button listener
         mycheckbox.setOnCheckedChangeListener((btn, isChecked) ->
+                model.isSelected.postValue(isChecked)
+        );
+        mycheckbox2.setOnCheckedChangeListener((btn, isChecked) ->
                 model.isSelected.postValue(isChecked)
         );
         myradiobutton.setOnCheckedChangeListener((btn, isChecked) ->
@@ -64,20 +89,6 @@ public class MainActivity extends AppCompatActivity {
         myswitch.setOnCheckedChangeListener((btn, isChecked) ->
                 model.isSelected.postValue(isChecked)
         );
-
-        //button view model
-        model.isSelected.observe(this, selected -> {
-            mycheckbox.setChecked(selected);
-            myradiobutton.setChecked(selected);
-            myswitch.setChecked(selected);
-
-            Context context = getApplicationContext();
-            CharSequence text = "3 buttons are Selected!";
-            int duration = Toast.LENGTH_SHORT;
-
-            Toast toast = Toast.makeText(context, text, duration);
-            toast.show();
-        });
 
 
         //click imagebutton to show the toast image
