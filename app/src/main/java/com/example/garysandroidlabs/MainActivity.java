@@ -6,11 +6,15 @@ import androidx.lifecycle.ViewModelProvider;
 import android.content.Context;
 //import android.content.DialogInterface;
 import android.os.Bundle;
+import android.view.animation.Animation;
+import android.view.animation.LinearInterpolator;
+import android.view.animation.RotateAnimation;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageButton;
 //import android.widget.ImageView;
+import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.Switch;
 import android.widget.TextView;
@@ -21,88 +25,31 @@ import com.example.garysandroidlabs.databinding.ActivityMainBinding;
 public class MainActivity extends AppCompatActivity {
 
     private ActivityMainBinding variableBinding;
-    private MainViewModel model;
+
+    ImageView imgView;
+    Switch sw;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        //view binding
-        variableBinding = ActivityMainBinding.inflate(getLayoutInflater());
-        setContentView(variableBinding.getRoot());
+        imgView = findViewById(R.id.flagView);
+        sw = findViewById(R.id.switch1);
 
-        //instaniate a view model
-        model = new ViewModelProvider(this).get(MainViewModel.class);
+        sw.setOnCheckedChangeListener( (btn, isChecked) -> {
+            if (isChecked)
+            {
+                RotateAnimation rotate = new RotateAnimation(0, 360, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
+                rotate.setDuration(5000);
+                rotate.setRepeatCount(Animation.INFINITE);
+                rotate.setInterpolator(new LinearInterpolator());
 
-        //name all elements
-        TextView mytext = variableBinding.textView;
-        Button mybutton = variableBinding.mybutton;
-        EditText myedit = variableBinding.editText;
-        Switch myswitch = variableBinding.mySwitch;
-        CheckBox mycheckbox = variableBinding.checkBox;
-        CheckBox mycheckbox2 = variableBinding.checkBox2;
-        RadioButton myradiobutton = variableBinding.radioButton;
-        ImageButton myimagebutton = variableBinding.imageButton;
-        //ImageView myimageview = variableBinding.imageButton;
-
-        model.editString.observe(this, s ->
-                mytext.setText("Your edit text has " + s)
-        );
-
-        //click button to show text from edittext to text view
-        mybutton.setOnClickListener(click -> {
-            String word = myedit.getText().toString();
-            model.editString.postValue(word);
-
+                imgView.startAnimation(rotate);
+            }
+            else {
+                imgView.clearAnimation();
+            }
         });
-
-
-
-        //button view model
-        model.isSelected.observe(this, selected -> {
-
-
-            Context context = getApplicationContext();
-            CharSequence text = "3 buttons are Selected!";
-            int duration = Toast.LENGTH_SHORT;
-
-            Toast toast = Toast.makeText(context, text, duration);
-            toast.show();
-
-            mycheckbox.setChecked(selected);
-            mycheckbox2.setChecked(selected);
-            myradiobutton.setChecked(selected);
-            myswitch.setChecked(selected);
-        });
-
-        //compound button listener
-        mycheckbox.setOnCheckedChangeListener((btn, isChecked) ->
-                model.isSelected.postValue(isChecked)
-        );
-        mycheckbox2.setOnCheckedChangeListener((btn, isChecked) ->
-                model.isSelected.postValue(isChecked)
-        );
-        myradiobutton.setOnCheckedChangeListener((btn, isChecked) ->
-                model.isSelected.postValue(isChecked)
-        );
-        myswitch.setOnCheckedChangeListener((btn, isChecked) ->
-                model.isSelected.postValue(isChecked)
-        );
-
-
-        //click imagebutton to show the toast image
-        myimagebutton.setOnClickListener(click -> {
-            int width = myimagebutton.getWidth();
-            int height = myimagebutton.getHeight();
-
-            Context context = getApplicationContext();
-            CharSequence text = "The width = " + width + " and height = " + height;
-            int duration = Toast.LENGTH_SHORT;
-
-            Toast toast = Toast.makeText(context, text, duration);
-            toast.show();
-        });
-        //
     }
 }

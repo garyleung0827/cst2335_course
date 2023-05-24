@@ -5,4 +5,5 @@
     <string name="hinttext">waiting for input</string>
     <string name="myedittext"></string>
     <string name="compoundbuttonmsg">Do you drink coffee?</string>
+    <string name="spin_message">spin flag</string>
 </resources>
