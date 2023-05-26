@@ -4,7 +4,11 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    tools:context=".MainActivity"
+    android:layout_marginTop="27dp"
+    android:layout_marginBottom="27dp"
+    android:layout_marginLeft="48dp"
+    android:layout_marginRight="48dp">
 
     <Button
         android:id="@+id/button1"
@@ -13,6 +17,9 @@
         android:layout_marginStart="32dp"
         android:layout_marginTop="32dp"
         android:text="Button"
+        android:nextFocusDown="@id/switch1"
+        android:nextFocusRight="@id/button2"
+        android:nextFocusLeft="@id/button3"
         app:layout_constraintEnd_toStartOf="@+id/button2"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
@@ -24,6 +31,9 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
         android:text="Button"
+        android:nextFocusDown="@id/switch1"
+        android:nextFocusRight="@id/button3"
+        android:nextFocusLeft="@id/button1"
         app:layout_constraintEnd_toStartOf="@+id/button3"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/button1"
@@ -35,6 +45,9 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
         android:text="Button"
+        android:nextFocusDown="@id/switch1"
+        android:nextFocusRight="@id/button1"
+        android:nextFocusLeft="@id/button2"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/button2"
@@ -55,7 +68,19 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="32dp"
         android:text="Switch"
+        android:nextFocusDown="@id/languageButton"
         app:layout_constraintBottom_toBottomOf="@+id/flagView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@+id/flagView" />
+
+    <Button
+        android:id="@+id/languageButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="28dp"
+        android:nextFocusUp="@id/switch1"
+        android:text="Switch Language"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
