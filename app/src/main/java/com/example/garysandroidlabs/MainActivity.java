@@ -5,7 +5,10 @@ import androidx.lifecycle.ViewModelProvider;
 
 import android.content.Context;
 //import android.content.DialogInterface;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
@@ -21,77 +24,45 @@ import com.example.garysandroidlabs.databinding.ActivityMainBinding;
 public class MainActivity extends AppCompatActivity {
 
     private ActivityMainBinding variableBinding;
-    private MainViewModel model;
+    //private MainViewModel model;
+
+    private String TAG = "MainActivity";
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+
+        Log.e(TAG, "In OnCreate()");
 
         //view binding
         variableBinding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(variableBinding.getRoot());
-
+        SharedPreferences prefs = getSharedPreferences("MyData", Context.MODE_PRIVATE);
         //instaniate a view model
-        model = new ViewModelProvider(this).get(MainViewModel.class);
+        //model = new ViewModelProvider(this).get(MainViewModel.class);
+        variableBinding.emailPrompt.setText(prefs.getString("Email", ""));
+        //event listener
+        variableBinding.loginBtn.setOnClickListener((v)->{
+            Log.e(TAG, "You clicked the button");
 
-        //name all elements
-        TextView mytext = variableBinding.textView;
-        Button mybutton = variableBinding.mybutton;
-        EditText myedit = variableBinding.editText;
-        Switch myswitch = variableBinding.mySwitch;
-        CheckBox mycheckbox = variableBinding.checkBox;
-        RadioButton myradiobutton = variableBinding.radioButton;
-        ImageButton myimagebutton = variableBinding.imageButton;
-        //ImageView myimageview = variableBinding.imageButton;
+            //create next page
+            Intent nextPage = new Intent(this, SecondActivity.class);
 
-        //click button to show text from edittext to text view
-        mybutton.setOnClickListener(click -> {
-            String word = myedit.getText().toString();
-            model.editString.postValue(word);
-            model.editString.observe(this, s ->
-                mytext.setText("Your edit text has " + s)
-            );
+            //get email and pw from user prompt
+            String emailAddress = variableBinding.emailPrompt.getText().toString();
+            String pw = variableBinding.pwPrompt.getText().toString();
+            SharedPreferences.Editor editor = prefs.edit();
+            editor.putString("Email", emailAddress);
+            editor.apply();
+
+//            nextPage.putExtra("Email", emailAddress);
+//            nextPage.putExtra("Password", pw);
+
+            //goto next page
+            startActivity(nextPage);
         });
 
-        //compound button listener
-        mycheckbox.setOnCheckedChangeListener((btn, isChecked) ->
-                model.isSelected.postValue(isChecked)
-        );
-        myradiobutton.setOnCheckedChangeListener((btn, isChecked) ->
-                model.isSelected.postValue(isChecked)
-        );
-        myswitch.setOnCheckedChangeListener((btn, isChecked) ->
-                model.isSelected.postValue(isChecked)
-        );
-
-        //button view model
-        model.isSelected.observe(this, selected -> {
-            mycheckbox.setChecked(selected);
-            myradiobutton.setChecked(selected);
-            myswitch.setChecked(selected);
-
-            Context context = getApplicationContext();
-            CharSequence text = "3 buttons are Selected!";
-            int duration = Toast.LENGTH_SHORT;
-
-            Toast toast = Toast.makeText(context, text, duration);
-            toast.show();
-        });
-
-
-        //click imagebutton to show the toast image
-        myimagebutton.setOnClickListener(click -> {
-            int width = myimagebutton.getWidth();
-            int height = myimagebutton.getHeight();
-
-            Context context = getApplicationContext();
-            CharSequence text = "The width = " + width + " and height = " + height;
-            int duration = Toast.LENGTH_SHORT;
-
-            Toast toast = Toast.makeText(context, text, duration);
-            toast.show();
-        });
-        //
     }
 }
