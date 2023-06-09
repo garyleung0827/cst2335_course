@@ -10,7 +10,7 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/Theme.GarysAndroidLabs"
-        tools:targetApi="31">
+        tools:targetApi="30">
         <activity
             android:name=".MainActivity"
             android:exported="true">
