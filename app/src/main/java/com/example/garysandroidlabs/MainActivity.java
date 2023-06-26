@@ -28,7 +28,7 @@ public class MainActivity extends AppCompatActivity {
      */
     private boolean checkPasswordComplexity(String pw){
         if(!pw.matches(".*[A-Z].*")){
-            Toast.makeText(this, "missing an upper case letter", Toast.LENGTH_SHORT);
+            Toast.makeText(this, "missing an upper case letter", Toast.LENGTH_SHORT).show();
             return false;
         }
         else if(!pw.matches(".*[a-z].*")){
