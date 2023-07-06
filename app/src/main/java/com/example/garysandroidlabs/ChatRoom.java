@@ -3,14 +3,19 @@ package com.example.garysandroidlabs;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.room.Room;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
 import android.widget.TextView;
 
 import com.example.garysandroidlabs.databinding.ActivityChatRoomBinding;
@@ -44,7 +49,10 @@ public class ChatRoom extends AppCompatActivity {
 
             itemView.setOnClickListener(click ->{
                 int position= getAbsoluteAdapterPosition();
-                AlertDialog.Builder builder = new AlertDialog.Builder(ChatRoom.this);
+
+                ChatMessage selected = messages.get(position);
+                chatModel.selectedMessage.postValue(selected);
+               /* AlertDialog.Builder builder = new AlertDialog.Builder(ChatRoom.this);
 
                 builder.setMessage("Do you want to delete the message:" + messageText.getText())
                         .setTitle("Question:")
@@ -61,7 +69,7 @@ public class ChatRoom extends AppCompatActivity {
                                     })
                                     .show();
                         } ))
-                        .create().show();
+                        .create().show();*/
             });
 
             messageText = itemView.findViewById(R.id.message);
@@ -70,6 +78,8 @@ public class ChatRoom extends AppCompatActivity {
     }
 
     ArrayList<ChatMessage> messages = new ArrayList<>();
+
+
 
 
     @Override
@@ -99,6 +109,8 @@ public class ChatRoom extends AppCompatActivity {
             });
             //chatModel.messages.postValue(messages = new ArrayList<ChatMessage>());
         }
+
+
 
         binding = ActivityChatRoomBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
@@ -176,5 +188,19 @@ public class ChatRoom extends AppCompatActivity {
         });
 
         binding.recycleView.setLayoutManager(new LinearLayoutManager(this));
+
+        chatModel.selectedMessage.observe(this, (newMessageValue) ->{
+            if(newMessageValue != null) {
+                FragmentManager fMgr = getSupportFragmentManager();
+                FragmentTransaction tx = fMgr.beginTransaction();
+                MessageDetailsFragment chatFragment = new MessageDetailsFragment(newMessageValue);
+//                binding.fragmentLocation.setBackgroundColor(Color.WHITE);
+                tx.replace(R.id.fragment_location, chatFragment);
+                tx.addToBackStack("new entry");
+                tx.commit();
+
+            }
+
+        });
     }
 }
