@@ -13,10 +13,14 @@ import androidx.room.Room;
 
 import android.graphics.Color;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.TextView;
+import android.widget.Toast;
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.garysandroidlabs.databinding.ActivityChatRoomBinding;
 import com.example.garysandroidlabs.databinding.ReceiveMessageBinding;
@@ -80,12 +84,49 @@ public class ChatRoom extends AppCompatActivity {
     ArrayList<ChatMessage> messages = new ArrayList<>();
 
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        super.onCreateOptionsMenu(menu);
+        getMenuInflater().inflate(R.menu.my_menu, menu);
+        return true;
+    }
 
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        int itemID = item.getItemId();
+        if(itemID ==R.id.menu_item_1) {
+
+             /* AlertDialog.Builder builder = new AlertDialog.Builder(ChatRoom.this);
+
+                builder.setMessage("Do you want to delete the message:" + messageText.getText())
+                        .setTitle("Question:")
+                        .setNegativeButton("No", (dialog, cl) ->{} )
+                        .setPositiveButton("Yes",((dialog, cl) ->{
+                            ChatMessage m  = messages.get(position);
+                            mDAO.deleteMessage(m);
+                            messages.remove(position);
+                            myAdapter.notifyItemRemoved(position);
+                            Snackbar.make(messageText, "deleted message #"+position, Snackbar.LENGTH_LONG)
+                                    .setAction("Undo", (cl2) ->{
+                                        messages.add(position, m);
+                                        myAdapter.notifyItemInserted(position);
+                                    })
+                                    .show();
+                        } ))
+                        .create().show();*/
+        }
+        else if(itemID == R.id.menu_item_about) {
+            Toast.makeText(this,"Version 1.0, created by Kin Man Leung",Toast.LENGTH_LONG);
+        }
+
+        return true;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chat_room);
+        setSupportActionBar(binding.toolbar);
 
         //create database
         MessageDatabase db = Room.databaseBuilder(getApplicationContext(), MessageDatabase.class, "database-name").allowMainThreadQueries().build();
@@ -109,8 +150,6 @@ public class ChatRoom extends AppCompatActivity {
             });
             //chatModel.messages.postValue(messages = new ArrayList<ChatMessage>());
         }
-
-
 
         binding = ActivityChatRoomBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
@@ -194,7 +233,6 @@ public class ChatRoom extends AppCompatActivity {
                 FragmentManager fMgr = getSupportFragmentManager();
                 FragmentTransaction tx = fMgr.beginTransaction();
                 MessageDetailsFragment chatFragment = new MessageDetailsFragment(newMessageValue);
-//                binding.fragmentLocation.setBackgroundColor(Color.WHITE);
                 tx.replace(R.id.fragment_location, chatFragment);
                 tx.addToBackStack("new entry");
                 tx.commit();

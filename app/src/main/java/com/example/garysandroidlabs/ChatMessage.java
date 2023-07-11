@@ -34,6 +34,7 @@ public class ChatMessage {
         isSentButton = sent;
     }
 
+    public int getId(){return id;}
     public String getMessage() {
         return message;
     }
