@@ -8,7 +8,8 @@ import androidx.room.PrimaryKey;
 public class ChatMessage {
 
     @PrimaryKey(autoGenerate = true)
-    public int id;
+    @ColumnInfo(name="id")
+    public long id;
 
     @ColumnInfo(name="message")
     protected String message;
@@ -34,7 +35,7 @@ public class ChatMessage {
         isSentButton = sent;
     }
 
-    public int getId(){return id;}
+    public long getId(){return id;}
     public String getMessage() {
         return message;
     }

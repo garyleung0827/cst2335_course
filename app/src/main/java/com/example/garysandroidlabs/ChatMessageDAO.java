@@ -19,4 +19,9 @@ public interface ChatMessageDAO {
     @Delete
     void deleteMessage(ChatMessage m);
 
+    @Query("Delete from ChatMessage Where id= :userId")
+    void deleteMessageByID(long userId);
+
+    @Query("Select * from ChatMessage where id= :userId")
+    ChatMessage getMessageByID(long userId);
 }
